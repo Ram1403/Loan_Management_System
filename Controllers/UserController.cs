@@ -2,6 +2,7 @@
 using Loan_Management_System.Services;
 using Loan_Management_System.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Loan_Management_System.Controllers
 {
@@ -45,6 +46,7 @@ namespace Loan_Management_System.Controllers
             return Ok(updatedUser);
         }
         [HttpDelete("{id}")]
+        //[Authorize(Roles = nameof(Role.Customer))]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var deletedUser = await _userService.Delete(id);

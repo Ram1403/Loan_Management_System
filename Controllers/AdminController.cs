@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Loan_Management_System.Services;
 using Loan_Management_System.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Loan_Management_System.Controllers
 {
@@ -50,6 +51,7 @@ namespace Loan_Management_System.Controllers
             return Ok(updatedAdmin);
         }
         [HttpDelete("{id}")]
+        //[Authorize]
         public async Task<IActionResult> DeleteAdmin(int id)
         {
             var deletedAdmin = await _adminService.Delete(id);

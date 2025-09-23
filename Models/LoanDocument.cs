@@ -18,7 +18,7 @@ namespace Loan_Management_System.Models
         public string DocumentType { get; set; }
 
         [StringLength(255)]
-        public string FilePath { get; set; }
+        public string FilePath { get; set; } //clodinary url will be stored here
 
         [StringLength(100)]
         public string FileName { get; set; }

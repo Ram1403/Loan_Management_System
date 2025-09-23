@@ -24,6 +24,16 @@ namespace Loan_Management_System
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<ILoanOfficerRepository, LoanOfficerRepository>();
+            builder.Services.AddScoped<ILoanOfficerService, LoanOfficerService>();
+            builder.Services.AddScoped<ILoanSchemeRepository, LoanSchemeRepository>();
+            builder.Services.AddScoped<ILoanSchemeService, LoanSchemeService>();
+            builder.Services.AddScoped<ILoanApplicationRepository, LoanApplicationRepository>();
+            builder.Services.AddScoped<ILoanApplicationService, LoanApplicationService>();
+
+
+
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

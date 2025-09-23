@@ -35,8 +35,8 @@ namespace Loan_Management_System.Models
         public DateTime? UpdatedAt { get; set; }
 
         // Navigation properties
-        public virtual User User { get; set; }
-        public virtual LoanAdmin ?LoanAdmin { get; set; }
+        public virtual User? User { get; set; }
+        //public virtual LoanAdmin ?LoanAdmin { get; set; }
         [JsonIgnore]
         public virtual ICollection<LoanApplication> ?AssignedLoanApplications { get; set; }
         [JsonIgnore]

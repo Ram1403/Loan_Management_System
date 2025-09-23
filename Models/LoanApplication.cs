@@ -34,7 +34,7 @@ namespace Loan_Management_System.Models
 
         public string EmploymentDetails { get; set; }
 
-        public string SubmittedDocuments { get; set; }
+        public string SubmittedDocuments { get; set; } // ye remove karna hai copi suggetion
 
         public Status Status { get; set; }
 

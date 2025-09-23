@@ -48,11 +48,11 @@ namespace Loan_Management_System.Repository
         }
         public async Task<LoanAdmin?> GetById(int id)
         {
-            return await _context.LoanAdmins.FindAsync(id);
+            return await _context.LoanAdmins.Include(u=>u.User).FirstOrDefaultAsync(a=>a.AdminId==id);
         }
         public async Task<List<LoanAdmin>> GetAll()
         {
-            return await _context.LoanAdmins.ToListAsync();
+            return await _context.LoanAdmins.Include(u=>u.User).ToListAsync();
         }
 
         

@@ -25,7 +25,7 @@ namespace Loan_Management_System.Models
         public decimal SanctionedAmount { get; set; }
 
         [Column(TypeName = "decimal(15, 2)")]
-        public decimal RemainingAmount { get; set; }
+        public decimal RemainingAmount { get; set; } //amount with interest remaining to be paid
 
         [Column(TypeName = "decimal(10, 2)")]
         public decimal EmiAmount { get; set; }
@@ -59,6 +59,7 @@ namespace Loan_Management_System.Models
         public virtual LoanApplication? LoanApplication { get; set; }
         [JsonIgnore]
         public virtual ICollection<Repayment> ?Repayments { get; set; }
+        [JsonIgnore]
         public virtual Npa ?Npa { get; set; }
         [JsonIgnore]
         public virtual ICollection<EmailNotification>? EmailNotifications { get; set; }

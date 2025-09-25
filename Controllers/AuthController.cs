@@ -15,7 +15,7 @@ namespace Loan_Management_System.Controllers
         {
             _authService = authService;
         }
-        [HttpPost]
+        [HttpPost("/login")]
         public IActionResult Login(LoginViewModel model)
         {
             LoginResponseViewModel response;
@@ -25,7 +25,8 @@ namespace Loan_Management_System.Controllers
                 if (response.User != null)
                 {
                     //return Ok(response);
-                    return Ok(response.Token);
+                    //return Ok(response.Token);
+                    return Ok(new { token = response.Token });
 
                 }
                 return Unauthorized();

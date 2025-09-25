@@ -1,11 +1,14 @@
 ﻿using System.Text;
 using Loan_Management_System.Data;
+using Loan_Management_System.Models;
 using Loan_Management_System.Repository;
 using Loan_Management_System.Services;
+using Loan_Management_System.Services.Payment;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using QuestPDF.Infrastructure;
 namespace Loan_Management_System
 {
     public class Program
@@ -13,6 +16,7 @@ namespace Loan_Management_System
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            QuestPDF.Settings.License = LicenseType.Community;
 
             // Add services to the container.
             builder.Services.AddDbContext<LoanDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultDbConnection")));
@@ -30,6 +34,33 @@ namespace Loan_Management_System
             builder.Services.AddScoped<ILoanSchemeService, LoanSchemeService>();
             builder.Services.AddScoped<ILoanApplicationRepository, LoanApplicationRepository>();
             builder.Services.AddScoped<ILoanApplicationService, LoanApplicationService>();
+            builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+            builder.Services.AddScoped<ILoanService, LoanService>();
+            builder.Services.AddScoped<IPaymentGatewayService, DummyPaymentGatewayService>();
+            builder.Services.AddScoped<IRepaymentService, RepaymentService>();
+            builder.Services.AddScoped<IRepaymentRepository, RepaymentRepository>();
+            builder.Services.AddScoped<INpaRepository, NpaRepository>();
+            builder.Services.AddScoped<INpaService, NpaService>();
+            builder.Services.AddScoped<IReportRepository, ReportRepository>();
+            builder.Services.AddScoped<IReportService, ReportService>();
+            builder.Services.AddScoped<Services.Report.ReportGeneratorService>();
+
+
+
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    policy => policy.AllowAnyOrigin()
+                                    .AllowAnyMethod()
+                                    .AllowAnyHeader());
+            });
+
+
+
+
+
+
 
 
 
@@ -150,6 +181,7 @@ namespace Loan_Management_System
                     }
                     );
             }
+            app.UseCors("AllowAll");
 
             app.UseHttpsRedirection();
 

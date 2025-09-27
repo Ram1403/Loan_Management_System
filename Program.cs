@@ -1,8 +1,10 @@
 ﻿using System.Text;
+using Loan_Management_System.Configurations;
 using Loan_Management_System.Data;
 using Loan_Management_System.Models;
 using Loan_Management_System.Repository;
 using Loan_Management_System.Services;
+using Loan_Management_System.Services.Email;
 using Loan_Management_System.Services.Payment;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -44,6 +46,20 @@ namespace Loan_Management_System
             builder.Services.AddScoped<IReportRepository, ReportRepository>();
             builder.Services.AddScoped<IReportService, ReportService>();
             builder.Services.AddScoped<Services.Report.ReportGeneratorService>();
+            builder.Services.AddScoped<ICustomerQueryRepository, CustomerQueryRepository>();
+            builder.Services.AddScoped<ICustomerQueryService, CustomerQueryService>();
+
+            // Email settings
+            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
+            // Repos & services
+            builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+            builder.Services.AddScoped<INotificationService, NotificationService>();
+
+            // Email sender
+            builder.Services.AddScoped<IEmailSender, SmtpEmailSender>();
+
+            
 
 
 
@@ -162,6 +178,11 @@ namespace Loan_Management_System
 
             var app = builder.Build();
 
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var emailSender = scope.ServiceProvider.GetRequiredService<IEmailSender>();
+            //    emailSender.SendEmailAsync("rameshvishwakarma715@gmail.com", "Test Email", "Hello Ramesh, test works!");
+            //}
             //Configure the HTTP request pipeline.
             //if (app.Environment.IsDevelopment())
             //{

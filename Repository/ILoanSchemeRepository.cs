@@ -4,12 +4,10 @@ namespace Loan_Management_System.Repository
 {
     public interface ILoanSchemeRepository
     {
-        Task<IEnumerable<LoanScheme>> GetAllAsync();
-        Task<LoanScheme?> GetByIdAsync(int id);
-        Task<LoanScheme> CreateAsync(LoanScheme scheme);
-        Task<LoanScheme?> UpdateAsync(LoanScheme scheme);
-        Task<LoanScheme?> DeleteAsync(int id);
-        Task<bool> ExistsAsync(int id);
+        Task<IEnumerable<LoanScheme>> GetAllSchemesAsync();
+        Task<LoanScheme?> GetSchemeByIdAsync(int id);
+        Task<LoanScheme> CreateSchemeAsync(LoanScheme scheme);
+        Task<LoanScheme?> UpdateSchemeAsync(LoanScheme scheme);
+        Task<bool> DeleteSchemeAsync(int id);
     }
-
 }

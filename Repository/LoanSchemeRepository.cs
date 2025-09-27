@@ -14,43 +14,47 @@ namespace Loan_Management_System.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<LoanScheme>> GetAllAsync() =>
-            await _context.LoanSchemes.Include(s => s.LoanAdmin).ToListAsync();
+        public async Task<IEnumerable<LoanScheme>> GetAllSchemesAsync() =>
+            await _context.LoanSchemes.Where(s => s.IsActive).ToListAsync();
 
-        public async Task<LoanScheme?> GetByIdAsync(int id) =>
-            await _context.LoanSchemes.Include(s => s.LoanAdmin)
-                                      .FirstOrDefaultAsync(s => s.SchemeId == id);
+        public async Task<LoanScheme?> GetSchemeByIdAsync(int id) =>
+            await _context.LoanSchemes.FirstOrDefaultAsync(s => s.SchemeId == id && s.IsActive);
 
-        public async Task<LoanScheme> CreateAsync(LoanScheme scheme)
+        public async Task<LoanScheme> CreateSchemeAsync(LoanScheme scheme)
         {
+            scheme.CreatedAt = DateTime.UtcNow;
+            scheme.IsActive = true;
             await _context.LoanSchemes.AddAsync(scheme);
             await _context.SaveChangesAsync();
             return scheme;
         }
 
-        public async Task<LoanScheme?> UpdateAsync(LoanScheme scheme)
+        public async Task<LoanScheme?> UpdateSchemeAsync(LoanScheme scheme)
         {
             var existing = await _context.LoanSchemes.FindAsync(scheme.SchemeId);
             if (existing == null) return null;
 
-            _context.Entry(existing).State = EntityState.Detached;
-            _context.LoanSchemes.Update(scheme);
+            existing.SchemeName = scheme.SchemeName;
+            existing.InterestRate = scheme.InterestRate;
+            existing.MaxAmount = scheme.MaxAmount;
+            existing.MinAmount = scheme.MinAmount;
+            existing.TenureMonths = scheme.TenureMonths;
+            existing.EligibilityCriteria = scheme.EligibilityCriteria;
+            existing.IsActive = scheme.IsActive;
+            existing.UpdatedAt = DateTime.UtcNow;
+
             await _context.SaveChangesAsync();
-            return scheme;
+            return existing;
         }
 
-        public async Task<LoanScheme?> DeleteAsync(int id)
+        public async Task<bool> DeleteSchemeAsync(int id)
         {
-            var scheme = await GetByIdAsync(id);
-            if (scheme == null) return null;
+            var scheme = await _context.LoanSchemes.FindAsync(id);
+            if (scheme == null) return false;
 
             _context.LoanSchemes.Remove(scheme);
             await _context.SaveChangesAsync();
-            return scheme;
+            return true;
         }
-
-        public async Task<bool> ExistsAsync(int id) =>
-            await _context.LoanSchemes.AnyAsync(s => s.SchemeId == id);
     }
-
 }

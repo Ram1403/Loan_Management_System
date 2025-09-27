@@ -1,43 +1,32 @@
 ﻿using Loan_Management_System.Models;
-using Loan_Management_System.Data;
-using Loan_Management_System.Repository;
-namespace Loan_Management_System.Services
+
+public class CustomerService : ICustomerService
 {
-    public class CustomerService: ICustomerService
+    private readonly ICustomerRepository _repository;
+
+    public CustomerService(ICustomerRepository repository)
     {
-        private readonly ICustomerRepository _repository;
-
-        public CustomerService(ICustomerRepository repository)
-        {
-            _repository = repository;
-        }
-
-        public async Task<IEnumerable<Customer>> GetAll() =>
-            await _repository.GetAll();
-
-        
-        public async Task<Customer?> GetById(int id) {
-           var customer= await _repository.GetById(id);
-            return customer;
-        }
-           
-
-        public async Task <Customer>Add(Customer customer) {
-            await _repository.Add(customer);
-            return customer;
-        }
-           
-
-        public async Task<Customer> Update(Customer customer) {
-            await _repository.Update(customer);
-            return customer;
-        }
-           
-
-        public async Task<Customer> Delete(int id) {
-           var customer= await _repository.Delete(id);
-            return customer;
-        }
-            
+        _repository = repository;
     }
+
+    public async Task<IEnumerable<Customer>> GetAllCustomersAsync() =>
+        await _repository.GetAllCustomersAsync();
+
+    public async Task<Customer?> GetCustomerByIdAsync(int id) =>
+        await _repository.GetCustomerByIdAsync(id);
+
+    public async Task<Customer> AddCustomerAsync(Customer customer) =>
+        await _repository.AddCustomerAsync(customer);
+
+    public async Task<Customer?> UpdateCustomerAsync(Customer customer) =>
+        await _repository.UpdateCustomerAsync(customer);
+
+    public async Task<Customer?> VerifyCustomerAsync(int id) =>
+        await _repository.VerifyCustomerAsync(id);
+
+    public async Task<Customer?> RejectCustomerAsync(int id, string reason) =>
+        await _repository.RejectCustomerAsync(id, reason);
+
+    public async Task<Customer?> DeleteCustomerAsync(int id) =>
+        await _repository.DeleteCustomerAsync(id);
 }

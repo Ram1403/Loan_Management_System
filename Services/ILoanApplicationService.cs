@@ -8,6 +8,8 @@ public interface ILoanApplicationService
     Task<LoanApplication> CreateApplicationAsync(LoanApplication application);
     Task<LoanApplication?> UpdateApplicationStatusAsync(int id, Status newStatus, string? remarks);
     Task<LoanApplication?> AssignLoanOfficerAsync(int id, int officerId);
+    Task<IEnumerable<LoanApplication>> GetByCustomerAsync(int customerId);
+
 
     // ✅ New methods
     Task<bool> DeleteApplicationAsync(int id);

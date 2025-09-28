@@ -90,6 +90,14 @@ public class LoanApplicationController : ControllerBase
     public async Task<IActionResult> GetSummaryByCustomer(int customerId) =>
         Ok(await _service.GetSummaryByCustomerAsync(customerId));
 
+    [HttpGet("customer/{customerId}")]
+    public async Task<IActionResult> GetByCustomer(int customerId)
+    {
+        var apps = await _service.GetByCustomerAsync(customerId);
+        return Ok(apps);
+    }
+
+
 
 }
 

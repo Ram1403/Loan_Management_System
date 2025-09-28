@@ -29,6 +29,14 @@ namespace Loan_Management_System.Repository
                 .Include(a => a.LoanOfficer)
                 .FirstOrDefaultAsync(a => a.ApplicationId == id);
 
+
+        public async Task<IEnumerable<LoanApplication>> GetByCustomerAsync(int customerId) =>
+    await _context.LoanApplications
+        .Include(a => a.Customer)
+        .Where(a => a.CustomerId == customerId)
+        .ToListAsync();
+
+
         public async Task<LoanApplication> CreateAsync(LoanApplication application)
         {
             await _context.LoanApplications.AddAsync(application);

@@ -23,6 +23,15 @@ public class CustomersController : ControllerBase
         return customer == null ? NotFound() : Ok(customer);
     }
 
+    [HttpGet("by-user/{userId}")]
+    public async Task<IActionResult> GetCustomerByUserId(int userId)
+    {
+        var customer = await _service.GetByUserId(userId);
+        if (customer == null) return NotFound();
+        return Ok(customer);
+    }
+
+
     [HttpPost]
     public async Task<IActionResult> AddCustomer([FromBody] Customer customer)
     {

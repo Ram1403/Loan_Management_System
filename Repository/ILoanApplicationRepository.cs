@@ -17,6 +17,8 @@ namespace Loan_Management_System.Repository
         Task<IEnumerable<LoanApplication>> GetByStatusAsync(Status status);
         Task<IEnumerable<LoanApplication>> GetByDateRangeAsync(DateTime start, DateTime end);
         Task<IEnumerable<LoanApplication>> SearchAsync(string query);
+        Task<IEnumerable<LoanApplication>> GetByCustomerAsync(int customerId);
+
         Task<IEnumerable<LoanApplication>> GetRecentByCustomerAsync(int customerId);
         Task<IEnumerable<LoanApplication>> GetByCustomerAndStatusAsync(int customerId, Status status);
         Task<ApplicationSummary> GetSummaryByCustomerAsync(int customerId);

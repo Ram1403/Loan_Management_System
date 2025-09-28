@@ -15,7 +15,7 @@ namespace Loan_Management_System.Controllers
         {
             _authService = authService;
         }
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public IActionResult Login(LoginViewModel model)
         {
             LoginResponseViewModel response;

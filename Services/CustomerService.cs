@@ -15,6 +15,8 @@ public class CustomerService : ICustomerService
     public async Task<Customer?> GetCustomerByIdAsync(int id) =>
         await _repository.GetCustomerByIdAsync(id);
 
+    public Task<Customer?> GetByUserId(int userId) => _repository.GetByUserId(userId);
+
     public async Task<Customer> AddCustomerAsync(Customer customer) =>
         await _repository.AddCustomerAsync(customer);
 

@@ -155,6 +155,14 @@ namespace Loan_Management_System.Repository
                 $"Admin {adminId} assigned officer at {DateTime.UtcNow}"
             };
         }
+
+        //        public async Task<LoanAdmin?> Create(LoanAdmin loanAdmin)
+        //        {
+        //            _context.LoanAdmins.Add(loanAdmin);
+        //            await _context.SaveChangesAsync();
+        //            return loanAdmin;
+
+        //        }
     }
 }
 

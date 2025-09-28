@@ -17,6 +17,10 @@ public class LoanApplicationService : ILoanApplicationService
     public async Task<LoanApplication?> GetApplicationByIdAsync(int id) =>
         await _repository.GetByIdAsync(id);
 
+    public Task<IEnumerable<LoanApplication>> GetByCustomerAsync(int customerId) =>
+    _repository.GetByCustomerAsync(customerId);
+
+
     public async Task<LoanApplication> CreateApplicationAsync(LoanApplication application) =>
         await _repository.CreateAsync(application);
 

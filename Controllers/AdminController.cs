@@ -26,6 +26,17 @@ public class AdminsController : ControllerBase
     public async Task<IActionResult> GetAllAdmins() =>
         Ok(await _service.GetAllAdminsAsync());
 
+
+    [HttpPost]
+    public async Task<IActionResult> CreateAdmin(LoanAdmin loanAdmin)
+    {
+        var createdAdmin = await _service.CreateAdminAsync(loanAdmin);
+        return CreatedAtAction(nameof(GetAdminById), new { id = createdAdmin.AdminId }, createdAdmin);
+    }
+
+
+
+
     [HttpPost("{adminId}/loan-schemes")]
     public async Task<IActionResult> CreateLoanScheme(int adminId, [FromBody] LoanScheme scheme) =>
         Ok(await _service.CreateLoanSchemeAsync(adminId, scheme));

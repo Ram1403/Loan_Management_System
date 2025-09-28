@@ -46,7 +46,8 @@ namespace Loan_Management_System.Services
         new Claim("Role",user.Role.ToString()) ,// Custom claim
         new Claim("UserId", user.UserId.ToString()) ,// Custom claim
         new Claim("UserName", user.Username), // Custom claim
-        new Claim("UserEmail", user.Email) // Custom claim
+        new Claim("UserEmail", user.Email)
+// Custom claim
 
     };
 
